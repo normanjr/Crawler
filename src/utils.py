@@ -13,7 +13,7 @@ Date:    2014/12/15 13:25:30
 import urlparse
 import posixpath
 import urllib
-import logger
+import logging
 import os
 import shutil
 
@@ -31,7 +31,7 @@ def http_request(url):
 				return result
 		except IOError:
 			continue
-	logger.error('http request socket timeout', url)
+	#logging.error('http request socket timeout, details: %s' % url)
 	return None
 
 def joint_url(url, href):
@@ -73,9 +73,9 @@ def rm_all_dirs(dir):
 			if os.path.isdir(file_path):
 				shutil.rmtree(file_path,True)  
 		except OSError as error:
-			logger.error("Remove tmp_dir %s failed! Details: %s" % (f, error))
+			logging.error("Remove tmp_dir %s failed! Details: %s" % (f, error))
 
 	try:
 		shutil.rmtree(dir)
 	except OSError as error:
-		logger.error("Remove tmp_dir %s failed! Details: %s" % (dir, error))
+		logging.error("Remove tmp_dir %s failed! Details: %s" % (dir, error))

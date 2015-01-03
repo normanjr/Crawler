@@ -14,7 +14,8 @@ Date:    2014/11/05 11:38:09
 import command_parse
 import config_reader
 import html_crawler
-import logger
+import my_logger
+import logging
 import sys
 
 
@@ -27,8 +28,7 @@ if __name__ == "__main__":
 		htmls
 	"""
 	#初始化日志
-	logger.log_init("../log/", 8)
-	logger.info("The urls is all fininshed.")
+	my_logger.log_init("../log/", 8)
 
 	command = command_parse.CommandParse()
 	config_file = command.parse()
@@ -47,6 +47,6 @@ if __name__ == "__main__":
     #抓取内容
 	crawler = html_crawler.Crawler(conf_dict)
 	crawler.start()
-	logger.info("The urls is all fininshed.")
+	logging.info("The urls is all fininshed.")
 
 

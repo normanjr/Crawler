@@ -12,7 +12,7 @@ Date:    2014/11/05 13:25:30
 """
 
 import argparse
-import logger
+import logging
 import os
 
 
@@ -49,12 +49,12 @@ class CommandParse(object):
 		#没有conf参数的时候提示
 		elif args.get_conf is None:
 			print self.ERROR_NONE_CONF
-			logger.error(self.ERROR_NONE_CONF)
+			logging.error(self.ERROR_NONE_CONF)
 			return None
 		#找不到conf文件
 		elif not os.path.isfile(args.get_conf):
 			print self.ERROR_ERROR_CONF
-			logger.error(self.ERROR_ERROR_CONF)
+			logging.error(self.ERROR_ERROR_CONF)
 			return None
 		else:
 			return args.get_conf

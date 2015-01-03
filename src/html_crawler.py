@@ -18,7 +18,7 @@ import time
 import socket
 import urllib
 import chardet
-import logger
+import logging
 import utils
 import math
 	
@@ -113,7 +113,7 @@ class MultiCrawlerThread(threading.Thread):
 				#把解析出来的url放到list中
 				out_url_list.append(real_url)
 		except HTMLParser.HTMLParseError as error:
-			logger.error("Parsing url: %s failed. Details: %s " % (url, error))
+			logging.error("Parsing url: %s failed. Details: %s " % (url, error))
 			return None
 		return out_url_list
 
@@ -129,7 +129,7 @@ class MultiCrawlerThread(threading.Thread):
 			#获取url的html
 			content = utils.http_request(url)
 			if content is None:
-				logger.error("Get this url failed : %s "% url)
+				logging.error("Get this url failed. %s "% url)
 				continue
 			
 			#转码
@@ -137,7 +137,7 @@ class MultiCrawlerThread(threading.Thread):
 				coding = chardet.detect(content)['encoding']
 				content = content.decode(coding).encode('utf8')
 			except UnicodeError as error:
-				logger.error("Decoding this url's content failed: %s. Error detail is %s" % (url, error))
+				logging.error("Decoding this url's content failed: %s. Error detail is %s" % (url, error))
 				continue
 
 			#解析页面中的下一层的url
@@ -183,7 +183,7 @@ class Crawler(object):
 				self.wait_list.append(line.strip()) 
 				#self.append_new_urls(line.strip(), 0)
 		except IOError as error:
-			logger.error("The url_list_file:" + str(self.conf_dict["url_list_file"]) + \
+			logging.error("The url_list_file:" + str(self.conf_dict["url_list_file"]) + \
 				"read IOError: %s" % str(error))
 
 
